@@ -1,4 +1,12 @@
-import { Component, effect, DestroyRef, inject, OnInit, signal } from "@angular/core";
+import {
+  Component,
+  effect,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  computed,
+} from "@angular/core";
 
 import { interval, map } from "rxjs";
 
@@ -9,24 +17,31 @@ import { interval, map } from "rxjs";
 })
 export class AppComponent implements OnInit {
   clickCount = signal(0);
+  interval = signal(0);
+  doubleInterval = computed(() => this.interval() * 2);
   private destroyRef = inject(DestroyRef);
+  private message = signal('Hello!');
 
   constructor() {
     effect(() => {
-      console.log(`Clicked button ${this.clickCount()} times.`)
-      
+      console.log(`Clicked button ${this.clickCount()} times.`);
     });
   }
-  
+
   ngOnInit(): void {
+ console.log(this.message());
+ 
+
     const subscription = interval(1000).pipe(
       map((val) => val * 2)
     ).subscribe({
       next: (val) => console.log(val),
     });
+
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     })
+
     // This is the full ngOnInit interval object which could take `next`, `complete` and `error` as parameters
     // interval(1000).subscribe({
     //   next: (val) => console.log(val),
@@ -35,6 +50,6 @@ export class AppComponent implements OnInit {
   }
 
   onClick() {
-    this.clickCount.update(prevCount => prevCount + 1)
+    this.clickCount.update((prevCount) => prevCount + 1);
   }
 }
