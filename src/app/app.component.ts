@@ -20,10 +20,10 @@ export class AppComponent implements OnInit {
   clickCount = signal(0);
   clickCount$ = toObservable(this.clickCount);
   interval$ = interval(1000);
-  intervalSignal = 
+  // intervalSignal =
   // interval = signal(0);
   // doubleInterval = computed(() => this.interval() * 2);
-  private d estroyRef = inject(DestroyRef);
+  private destroyRef = inject(DestroyRef);
  
   constructor() {
     // effect(() => {
