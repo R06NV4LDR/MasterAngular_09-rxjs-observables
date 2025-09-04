@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   intervalSignal = 
   // interval = signal(0);
   // doubleInterval = computed(() => this.interval() * 2);
-  private destroyRef = inject(DestroyRef);
+  private d estroyRef = inject(DestroyRef);
  
   constructor() {
     // effect(() => {
